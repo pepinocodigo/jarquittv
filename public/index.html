@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JarquitTV 🎨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="toast-container"></div>
+<div id="screen-login" class="screen active">
+  <div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+  <div class="login-layout">
+    <div class="login-left">
+      <div class="logo-wrap"><span>🎨</span><h1 class="logo-title">JarquitTV</h1></div>
+      <p class="logo-sub">O jogo onde a arte é julgada por uma máquina sem alma</p>
+      <div class="quotes">
+        <div class="quote">"Porque o carro parece o Michael Jackson"</div>
+        <div class="quote">"É mais fácil um elefante peidar"</div>
+        <div class="quote">"Que mentira"</div>
+        <div class="quote gold">"Lucas nunca vai me esquecer! Yeh yeh" ⭐</div>
+        <div class="quote">"é memu né?"</div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <h2 class="card-title">Entrar no Jogo</h2>
+        <div class="field">
+          <label for="input-name">Seu apelido</label>
+          <input id="input-name" type="text" maxlength="16" placeholder="Como te chamam, artista?" autocomplete="off"/>
+        </div>
+        <div class="actions">
+          <button id="btn-create" class="btn primary">🏠 Criar Sala</button>
+          <div class="or"><span>ou entre em uma sala</span></div>
+          <div class="join-row">
+            <input id="input-code" type="text" maxlength="6" placeholder="Código da sala" class="code-input" autocomplete="off"/>
+            <button id="btn-join" class="btn secondary">🚪 Entrar</button>
+          </div>
+        </div>
+      </div>
+      <div class="rooms-panel">
+        <div class="rooms-head">
+          <span>🟢 Salas abertas</span>
+          <button id="btn-refresh" class="icon-btn">🔄</button>
+        </div>
+        <div id="rooms-list"><p class="empty">Nenhuma sala aberta.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="screen-lobby" class="screen">
+  <div class="lobby-top">
+    <div class="lobby-title-row">
+      <h2 class="stitle">Sala de Espera 🎮</h2>
+      <div class="code-box">
+        <span class="code-lbl">Código</span>
+        <span id="display-code" class="code-val">------</span>
+        <button id="btn-copy" class="icon-btn">📋</button>
+      </div>
+    </div>
+    <p class="pcount"><span id="player-count">1</span> / 10 jogadores</p>
+  </div>
+  <div id="players-grid" class="pgrid"></div>
+  <div class="lobby-foot">
+    <p id="wait-msg" class="muted-msg">Aguardando o host iniciar...</p>
+    <button id="btn-start" class="btn primary large hidden">🚀 Começar Partida</button>
+    <p id="min-hint" class="hint">Precisa de pelo menos 2 jogadores</p>
+  </div>
+</div>
+<div id="screen-drawing" class="screen">
+  <div class="draw-header">
+    <div class="theme-wrap">
+      <span class="theme-lbl">Desenhe:</span>
+      <span id="current-theme" class="theme-val">—</span>
+    </div>
+    <div id="timer-box" class="timer tgreen">
+      <span id="timer-val">120</span><span class="ts">s</span>
+    </div>
+  </div>
+  <div class="canvas-wrap">
+    <canvas id="drawing-canvas"></canvas>
+  </div>
+  <div class="toolbar">
+    <div class="tl">
+      <div class="tgroup">
+        <button id="tool-pen" class="tbtn active">✏️</button>
+        <button id="tool-eraser" class="tbtn">🧹</button>
+        <button id="tool-fill" class="tbtn">🪣</button>
+      </div>
+      <div class="tgroup">
+        <span class="slbl">Tamanho</span>
+        <input id="size-slider" type="range" min="1" max="50" value="8"/>
+        <span id="size-val" class="snum">8</span>
+      </div>
+      <div class="tgroup">
+        <div id="color-palette" class="palette"></div>
+        <div class="cprev-wrap">
+          <div id="color-preview" class="cprev"></div>
+          <span class="cprev-lbl">cor</span>
+        </div>
+      </div>
+    </div>
+    <div class="tr">
+      <button id="btn-clear" class="btn ghost">🗑️ Limpar</button>
+      <button id="btn-submit" class="btn success">✅ Enviar</button>
+    </div>
+  </div>
+  <div id="sub-overlay" class="sub-overlay hidden">
+    <div class="sub-card">
+      <div class="spinner"></div>
+      <p>Aguardando os outros jogadores...</p>
+    </div>
+  </div>
+</div>
+<div id="screen-results" class="screen">
+  <div class="res-head"><h2 class="stitle">Resultados 🏆</h2></div>
+  <div id="robo-wrap" class="robo-wrap">
+    <div class="robo-icon">🤖</div>
+    <p class="robo-txt">Analisando os desenhos...</p>
+    <div class="robo-bar"><div id="robo-prog" class="robo-prog"></div></div>
+  </div>
+  <div id="res-content" class="res-content hidden">
+    <div id="winner-banner" class="winner-banner">
+      <div class="wcrown">👑</div>
+      <div class="winfo">
+        <span class="wlbl">Vencedor da Rodada</span>
+        <span id="winner-name" class="wname">—</span>
+      </div>
+    </div>
+    <p id="winner-verdict" class="verdict"></p>
+    <div id="gallery" class="gallery"></div>
+    <div class="res-foot">
+      <p id="next-wait" class="muted-msg">Aguardando o host...</p>
+      <button id="btn-next" class="btn primary large hidden">➡️ Próxima Rodada</button>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
