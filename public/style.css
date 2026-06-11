@@ -106,7 +106,6 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'Inter',
 .sub-card p{font-size:15px;color:var(--mut);font-weight:500}
 .spinner{width:42px;height:42px;border:3px solid var(--brd);border-top-color:var(--pur);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* COLOR WHEEL MODAL */
 #color-wheel-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .wheel-card{background:var(--surf);border:1px solid var(--brd);border-radius:20px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
 .wheel-card h3{font-family:'Fredoka One',cursive;font-size:18px}
@@ -114,7 +113,6 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'Inter',
 .wheel-preview-row{display:flex;align-items:center;gap:12px}
 #wheel-preview{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:#000}
 .wheel-preview-row span{font-size:13px;color:var(--mut)}
-/* GUESS LAYOUT */
 .guess-layout{flex:1;display:grid;grid-template-columns:1fr 320px;gap:0;overflow:hidden;width:100%}
 .guess-canvas-side{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--brd)}
 .guess-chat-side{display:flex;flex-direction:column;background:var(--surf)}
@@ -128,7 +126,6 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'Inter',
 .guess-input-wrap input{flex:1;background:var(--elev);border:1.5px solid rgba(124,58,237,.25);border-radius:10px;color:var(--txt);font-family:'Inter',sans-serif;font-size:14px;padding:9px 12px;outline:none;transition:border-color .2s}
 .guess-input-wrap input:focus{border-color:var(--pur)}
 .guess-input-wrap .btn{padding:9px 14px;font-size:13px}
-/* RESULTS */
 #screen-results,#screen-guess-over{justify-content:flex-start;padding-top:24px;overflow-y:auto}
 .res-head{width:100%;max-width:880px;margin-bottom:18px}
 .robo-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:50px 20px;width:100%;max-width:480px}
@@ -154,7 +151,6 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'Inter',
 .dbadge-win{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;background:rgba(245,158,11,.2);color:var(--amb)}
 .dbadge{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;background:var(--elev);color:var(--mut)}
 .res-foot{display:flex;flex-direction:column;align-items:center;gap:9px;padding:10px 0 26px}
-/* SCOREBOARD */
 .scoreboard{width:100%;max-width:500px;display:flex;flex-direction:column;gap:10px}
 .score-row{display:flex;align-items:center;gap:14px;background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:12px 18px;animation:cin .3s ease both}
 .score-row.first{border-color:var(--amb);background:rgba(245,158,11,.08)}
