@@ -17,7 +17,7 @@
     <canvas id="wheel-canvas"></canvas>
     <div class="wheel-preview-row">
       <div id="wheel-preview"></div>
-      <span>Clique na roda para escolher</span>
+      <span>Arraste para escolher</span>
     </div>
     <button id="wheel-close" class="btn primary">✓ Confirmar</button>
   </div>
@@ -43,13 +43,6 @@
           <label for="input-name">Seu apelido</label>
           <input id="input-name" type="text" maxlength="16" placeholder="Como te chamam, artista?" autocomplete="off"/>
         </div>
-        <div class="field">
-          <label>Modo de jogo</label>
-          <div class="mode-selector">
-            <div class="mode-opt active" data-mode="draw"><span>🎨</span><strong>Desenho Livre</strong><small>Todos desenham, robô julga</small></div>
-            <div class="mode-opt" data-mode="guess"><span>🔍</span><strong>Adivinhe!</strong><small>Um desenha, todos acertam</small></div>
-          </div>
-        </div>
         <div class="actions">
           <button id="btn-create" class="btn primary">🏠 Criar Sala</button>
           <div class="or"><span>ou entre em uma sala</span></div>
@@ -72,7 +65,7 @@
       <h2 class="stitle">Sala de Espera 🎮</h2>
       <div class="code-box"><span class="code-lbl">Código</span><span id="display-code" class="code-val">------</span><button id="btn-copy" class="icon-btn">📋</button></div>
     </div>
-    <p class="pcount"><span id="player-count">1</span> / 10 jogadores &nbsp;·&nbsp; <span id="lobby-mode-tag" class="mode-tag">🎨 Desenho Livre</span></p>
+    <p class="pcount"><span id="player-count">1</span> / 10 jogadores</p>
   </div>
   <div id="players-grid" class="pgrid"></div>
   <div class="lobby-foot">
@@ -86,83 +79,47 @@
     <div class="theme-wrap"><span class="theme-lbl">Desenhe:</span><span id="current-theme" class="theme-val">—</span></div>
     <div id="timer-box" class="timer tgreen"><span id="timer-val">120</span><span class="ts">s</span></div>
   </div>
-  <div class="canvas-wrap"><canvas id="drawing-canvas"></canvas></div>
-  <div class="toolbar">
-    <div class="tl">
-      <div class="tgroup">
-        <button id="tool-pen" class="tbtn active" title="Lápis">✏️</button>
-        <button id="tool-eraser" class="tbtn" title="Borracha">🧹</button>
-        <button id="tool-fill" class="tbtn" title="Balde">🪣</button>
-        <button id="tool-eyedropper" class="tbtn" title="Conta-gotas">🔬</button>
-        <button id="btn-undo" class="tbtn" title="Desfazer Ctrl+Z" disabled>↩️</button>
-        <button id="btn-redo" class="tbtn" title="Refazer Ctrl+Y" disabled>↪️</button>
-      </div>
-      <div class="tgroup">
-        <span class="slbl">Tamanho</span>
-        <input id="size-slider" type="range" min="1" max="50" value="8"/>
-        <span id="size-val" class="snum">8</span>
-      </div>
-      <div class="tgroup">
-        <div id="color-palette" class="palette"></div>
-        <div class="cprev-wrap"><div id="color-preview" class="cprev"></div><span class="cprev-lbl">cor</span></div>
-        <button id="btn-open-wheel" class="tbtn" title="Roda de cores">🌈</button>
+  <div class="draw-body">
+    <div class="draw-main">
+      <div class="canvas-wrap"><canvas id="drawing-canvas"></canvas></div>
+      <div class="toolbar">
+        <div class="tl">
+          <div class="tgroup">
+            <button id="tool-pen" class="tbtn active" title="Lápis">✏️</button>
+            <button id="tool-eraser" class="tbtn" title="Borracha">🧹</button>
+            <button id="tool-fill" class="tbtn" title="Balde">🪣</button>
+            <button id="tool-eyedropper" class="tbtn" title="Conta-gotas">🔬</button>
+            <button id="btn-undo" class="tbtn" title="Desfazer Ctrl+Z" disabled>↩️</button>
+            <button id="btn-redo" class="tbtn" title="Refazer Ctrl+Y" disabled>↪️</button>
+          </div>
+          <div class="tgroup">
+            <span class="slbl">Tamanho</span>
+            <input id="size-slider" type="range" min="1" max="50" value="8"/>
+            <span id="size-val" class="snum">8</span>
+          </div>
+          <div class="tgroup">
+            <div id="color-palette" class="palette"></div>
+            <div class="cprev-wrap"><div id="color-preview" class="cprev"></div><span class="cprev-lbl">cor</span></div>
+            <button id="btn-open-wheel" class="tbtn" title="Roda de cores">🌈</button>
+          </div>
+        </div>
+        <div class="tr">
+          <button id="btn-clear" class="btn ghost">🗑️ Limpar</button>
+          <button id="btn-submit" class="btn success">✅ Enviar</button>
+        </div>
       </div>
     </div>
-    <div class="tr">
-      <button id="btn-clear" class="btn ghost">🗑️ Limpar</button>
-      <button id="btn-submit" class="btn success">✅ Enviar</button>
+    <div class="draw-chat">
+      <div class="chat-header">💬 Chat</div>
+      <div id="draw-chat-messages" class="chat-messages"></div>
+      <div class="chat-input-wrap">
+        <input id="draw-chat-input" type="text" placeholder="Mensagem..." maxlength="200" autocomplete="off"/>
+        <button id="draw-chat-send" class="btn primary">➤</button>
+      </div>
     </div>
   </div>
   <div id="sub-overlay" class="sub-overlay hidden">
     <div class="sub-card"><div class="spinner"></div><p>Aguardando os outros jogadores...</p></div>
-  </div>
-</div>
-<div id="screen-guess" class="screen">
-  <div class="draw-header">
-    <div class="theme-wrap"><span id="guess-role-label" class="theme-lbl">Aguardando...</span><span id="guess-word-display" class="theme-val">—</span></div>
-    <div id="guess-timer-box" class="timer tgreen"><span id="guess-timer-val">90</span><span class="ts">s</span></div>
-  </div>
-  <div class="guess-layout">
-    <div class="guess-canvas-side">
-      <div class="canvas-wrap"><canvas id="guess-canvas"></canvas></div>
-      <div id="guess-toolbar" class="toolbar hidden">
-        <div class="tl">
-          <div class="tgroup">
-            <button id="gtool-pen" class="tbtn active">✏️</button>
-            <button id="gtool-eraser" class="tbtn">🧹</button>
-            <button id="gtool-fill" class="tbtn">🪣</button>
-            <button id="gtool-eyedropper" class="tbtn" title="Conta-gotas">🔬</button>
-            <button id="gbtn-undo" class="tbtn" disabled>↩️</button>
-            <button id="gbtn-redo" class="tbtn" disabled>↪️</button>
-          </div>
-          <div class="tgroup">
-            <span class="slbl">Tamanho</span>
-            <input id="gsize-slider" type="range" min="1" max="50" value="8"/>
-            <span id="gsize-val" class="snum">8</span>
-          </div>
-          <div class="tgroup">
-            <div id="gcolor-palette" class="palette"></div>
-            <div class="cprev-wrap"><div id="gcolor-preview" class="cprev"></div><span class="cprev-lbl">cor</span></div>
-            <button id="gbtn-open-wheel" class="tbtn" title="Roda de cores">🌈</button>
-          </div>
-        </div>
-        <div class="tr"><button id="gbtn-clear" class="btn ghost">🗑️ Limpar</button></div>
-      </div>
-    </div>
-    <div class="guess-chat-side">
-      <div class="chat-header">💬 Chat / Respostas</div>
-      <div id="chat-messages" class="chat-messages"></div>
-      <div id="guess-input-wrap" class="guess-input-wrap hidden">
-        <input id="guess-input" type="text" placeholder="Digite sua resposta..." maxlength="40" autocomplete="off"/>
-        <button id="guess-send" class="btn primary">Enviar</button>
-      </div>
-    </div>
-  </div>
-  <div id="turn-end-overlay" class="sub-overlay hidden">
-    <div class="sub-card">
-      <p id="turn-end-msg" style="font-size:20px;font-family:'Fredoka One',cursive;color:#f1f5f9"></p>
-      <p class="muted-msg">Próximo turno em instantes...</p>
-    </div>
   </div>
 </div>
 <div id="screen-results" class="screen">
@@ -183,14 +140,6 @@
       <p id="next-wait" class="muted-msg">Aguardando o host...</p>
       <button id="btn-next" class="btn primary large hidden">➡️ Próxima Rodada</button>
     </div>
-  </div>
-</div>
-<div id="screen-guess-over" class="screen">
-  <div class="res-head"><h2 class="stitle">Fim de Jogo 🏆</h2></div>
-  <div id="guess-scoreboard" class="scoreboard"></div>
-  <div class="res-foot" style="margin-top:24px">
-    <p id="guess-over-wait" class="muted-msg">Aguardando o host...</p>
-    <button id="btn-guess-next" class="btn primary large hidden">🔄 Jogar Novamente</button>
   </div>
 </div>
 <script src="/socket.io/socket.io.js"></script>
